@@ -7,12 +7,20 @@ export type UserType = {
     "trainerCode": string
     "instagramRef": string
     "user_info": string
+    "created": string
+}
+
+export type SortType = {
+    order: 'asc' | 'desc'
+    column: string
 }
 
 export type FiltersType = {
-    dateFrom?: string
-    dateTo?: string
-    page?: string
-    limit?: string
+    dateFrom: string
+    dateTo: string
+    page: number
+    limit: number
     search?: string
+    searchColumns?: string[]
+    sort?: SortType
 }

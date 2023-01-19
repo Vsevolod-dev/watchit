@@ -1,12 +1,14 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {FiltersType} from "../../types";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {FiltersType, SortType} from "../../types";
 
+let d = new Date();
+d.setDate(d.getDate() - 7);
 
 const initialState: FiltersType = {
-    page: '1',
-    limit: '5',
-    dateFrom: new Date().toLocaleDateString(),
-    dateTo: new Date().toLocaleDateString()
+    page: 1,
+    limit: 5,
+    dateFrom: d.toLocaleDateString(),
+    dateTo: new Date().toLocaleDateString(),
 }
 
 export const filtersSlice = createSlice({
@@ -22,15 +24,21 @@ export const filtersSlice = createSlice({
         setSearch(state, action) {
             state.search = action.payload
         },
+        setSearchColumns(state, action) {
+            state.searchColumns = action.payload
+        },
         setDateFrom(state, action) {
             state.dateFrom = action.payload
         },
         setDateTo(state, action) {
             state.dateTo = action.payload
+        },
+        setSort(state, action: PayloadAction<SortType>) {
+            state.sort = action.payload
         }
     },
 })
 
-export const {setPage, setLimit, setSearch, setDateFrom, setDateTo} = filtersSlice.actions
+export const {setPage, setLimit, setSearch, setDateFrom, setDateTo, setSort, setSearchColumns} = filtersSlice.actions
 
 export default filtersSlice.reducer
