@@ -27,6 +27,9 @@ export const filtersSlice = createSlice({
         setSearchColumns(state, action) {
             state.searchColumns = action.payload
         },
+        setShownColumns(state, action) {
+            state.shownColumns = action.payload
+        },
         setDateFrom(state, action) {
             state.dateFrom = action.payload
         },
@@ -39,6 +42,6 @@ export const filtersSlice = createSlice({
     },
 })
 
-export const {setPage, setLimit, setSearch, setDateFrom, setDateTo, setSort, setSearchColumns} = filtersSlice.actions
+export const {setPage, setLimit, setSearch, setDateFrom, setDateTo, setSort, setSearchColumns, setShownColumns} = filtersSlice.actions
 
 export default filtersSlice.reducer

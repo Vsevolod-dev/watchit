@@ -1,5 +1,6 @@
 export type UserType = {
     "id": string
+    "created": string
     "name": string
     "gym_id": string
     "photo": string
@@ -7,7 +8,6 @@ export type UserType = {
     "trainerCode": string
     "instagramRef": string
     "user_info": string
-    "created": string
 }
 
 export type SortType = {
@@ -23,4 +23,5 @@ export type FiltersType = {
     search?: string
     searchColumns?: string[]
     sort?: SortType
+    shownColumns?: string[]
 }
