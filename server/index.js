@@ -45,7 +45,7 @@ app.get('/users', (request, response) => {
     const sort = query['_sort']
     const order = query['_order'] === 'desc' ? 'desc' : 'asc'
 
-    if (array.length === 0) {
+    if (array.length === 0) { 
       switch (order) {
         case "asc":
           result.sort((a, b) => {
