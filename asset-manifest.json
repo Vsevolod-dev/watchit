@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/build/static/js/main.4abd7e5c.js",
-    "index.html": "/build/index.html",
-    "static/media/getFetch.cjs": "/build/static/media/getFetch.40f37ddea2378391108f.cjs",
-    "main.4abd7e5c.js.map": "/build/static/js/main.4abd7e5c.js.map"
+    "main.js": "/watchit/static/js/main.b411da19.js",
+    "index.html": "/watchit/index.html",
+    "static/media/getFetch.cjs": "/watchit/static/media/getFetch.40f37ddea2378391108f.cjs",
+    "main.b411da19.js.map": "/watchit/static/js/main.b411da19.js.map"
   },
   "entrypoints": [
-    "static/js/main.4abd7e5c.js"
+    "static/js/main.b411da19.js"
   ]
 }
