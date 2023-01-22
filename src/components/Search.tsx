@@ -22,7 +22,7 @@ const Search: FC = () => {
     if (!searchColumns) return <></>
 
     return (
-        <div>
+        <div style={{marginLeft: 'auto'}}>
             <TextField
                 label={t('Search')}
                 variant="standard"
@@ -45,9 +45,9 @@ const Search: FC = () => {
                     vertical: 'top',
                     horizontal: 'left',
                 }}
-                searchColumns={searchColumns}
-                columns={columns}
-                setFunct={setSearchColumns}
+                actualColumns={searchColumns}
+                allCols={columns}
+                setFn={setSearchColumns}
             />
         </div>
     );

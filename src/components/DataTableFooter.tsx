@@ -1,7 +1,7 @@
-import React, {FC, useContext} from 'react';
+import {FC, useContext} from 'react';
 import {TableFooter, TableRow} from "@mui/material";
 import FilterPopup from "./FilterPopup";
-import {setShownColumns} from "../redux/slices/filtersSlice";
+import {setShownColumns} from "../redux/slices/uiSlice";
 import Pagination from "./Pagination/Pagination";
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store";
@@ -14,7 +14,8 @@ type DataTableFooterType = {
 }
 
 const DataTableFooter: FC<DataTableFooterType> = ({data}) => {
-    const {page, limit, shownColumns} = useSelector((state: RootState) => state.filters)
+    const {page, limit} = useSelector((state: RootState) => state.filters)
+    const {shownColumns} = useSelector((state: RootState) => state.ui)
     let columns = useContext(TableContext)
 
     if (!shownColumns) return <></>
@@ -33,9 +34,9 @@ const DataTableFooter: FC<DataTableFooterType> = ({data}) => {
                             vertical: 'top',
                             horizontal: 'left',
                         }}
-                        searchColumns={shownColumns}
-                        columns={columns.filter(col => col.field !== 'expand')}
-                        setFunct={setShownColumns}
+                        actualColumns={shownColumns}
+                        allCols={columns.filter(col => col.field !== 'expand')}
+                        setFn={setShownColumns}
                     />
                 </td>
                 <Pagination result={data} limit={limit} page={page} colSpan={columns.length}/>

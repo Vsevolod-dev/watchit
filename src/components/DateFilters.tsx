@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import {FC, useState} from 'react';
 import {MenuItem, SelectChangeEvent, TextField} from "@mui/material";
 import {setDateFrom, setDateTo} from "../redux/slices/filtersSlice";
 import moment, {isMoment} from "moment/moment";

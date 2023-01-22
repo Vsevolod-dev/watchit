@@ -1,15 +1,19 @@
 import React, {FC, useContext} from 'react';
-import {IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {IconButton, styled, Table, TableBody, TableCell, TableHead, TableRow, TableRowProps } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Collapse from "@mui/material/Collapse";
 import TableContext from "../context/TableContext";
 import {UserType} from "../types";
+import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 
 type DataTableRowType = {
     row: UserType
     shownColumns: string[]
+    index: number
 }
 
 const collapsedColumns = [
@@ -18,13 +22,24 @@ const collapsedColumns = [
     {field: "user_info", headerName: "Доп. инфо"}
 ]
 
-const DataTableRow: FC<DataTableRowType> = ({row, shownColumns}) => {
+interface StyledTableRowProps extends TableRowProps {
+    index: number
+}
+
+const StyledTableRow = styled(TableRow)<StyledTableRowProps>(({ theme, index }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: index % 2 === 0 ? theme.palette.action.hover : 'white',
+      },
+}))
+
+const DataTableRow: FC<DataTableRowType> = ({row, shownColumns, index}) => {
     const [open, setOpen] = React.useState(false);
     const columns = useContext(TableContext)
+    const {dateFormat} = useSelector((state: RootState) => state.ui)
 
     return (
         <>
-            <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
+            <StyledTableRow sx={{'& > *': {borderBottom: 'unset'}}} index={index}>
                 <TableCell>
                     <IconButton
                         aria-label="expand row"
@@ -34,18 +49,23 @@ const DataTableRow: FC<DataTableRowType> = ({row, shownColumns}) => {
                         {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
                     </IconButton>
                 </TableCell>
-                {columns.map(column => {
+                {columns.map((column: {field: string, headerName: string, width: number}) => {
                     if (!shownColumns.includes(column.field)) return false
-                    // @ts-ignore
-                    return <TableCell key={column.field}>{row[column.field]}</TableCell>
+
+                    if (column.field === 'created') {                        
+                        const date = moment(row[column.field], 'YYYY-MM-DD HH:mm:ss')
+                        return <TableCell key={column.field}>{date.format(dateFormat)}</TableCell>
+                    }
+
+                    return <TableCell key={column.field}>{row[column.field as keyof UserType]}</TableCell>                    
                 })
                 }
 
-            </TableRow>
+            </StyledTableRow>
             <TableRow>
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={columns.length + 2}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Table size="small" aria-label="purchases">
+                        <Table size="small">
                             <TableHead>
                                 <TableRow>
                                     {collapsedColumns.map(col => <TableCell

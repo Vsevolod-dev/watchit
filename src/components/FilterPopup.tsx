@@ -9,19 +9,14 @@ type FilterPopupType = {
     style: Object
     anchorOrigin: PopoverOrigin
     transformOrigin: PopoverOrigin
-    searchColumns: string[]
-    columns: any[]
-    setFunct: (cols: string[]) => AnyAction
+    actualColumns: string[]
+    allCols: any[]
+    setFn: (cols: string[]) => AnyAction
 }
 
-const FilterPopup: FC<FilterPopupType> = ({
-                                              style,
-                                              anchorOrigin,
-                                              transformOrigin,
-                                              searchColumns,
-                                              columns,
-                                              setFunct}) => {
+const FilterPopup: FC<FilterPopupType> = (props) => {
     const dispatch = useAppDispatch()
+    const {style, anchorOrigin, transformOrigin, actualColumns, allCols, setFn} = props
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,18 +44,18 @@ const FilterPopup: FC<FilterPopupType> = ({
                 anchorEl={anchorEl}
             >
                 <Box sx={{p: 2}}>
-                    {columns.map(col => {
+                    {allCols.map(col => {
 
                         const changeHandler = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
                             if (checked) {
-                                dispatch(setFunct([...searchColumns, col.field]))
+                                dispatch(setFn([...actualColumns, col.field]))
                             } else {
-                                dispatch(setFunct(searchColumns.filter(sc => sc !== col.field)))
+                                dispatch(setFn(actualColumns.filter(ac => ac !== col.field)))
                             }
                         }
 
                         return <div key={col.field}>
-                            <Switch checked={searchColumns.includes(col.field)} onChange={changeHandler}/>
+                            <Switch checked={actualColumns.includes(col.field)} onChange={changeHandler}/>
                             <span>{col.headerName}</span>
                         </div>
                     })

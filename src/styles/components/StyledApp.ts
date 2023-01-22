@@ -9,6 +9,11 @@ const StyledApp = {
       justify-content: space-between;
       margin-bottom: 20px;
       align-items: center;
+    `,
+    GridRow: styled.div`
+      display: grid;
+      grid-template-columns: 0.85fr 2fr 3fr;
+      margin-bottom: 20px;
     `
 }
 

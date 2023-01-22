@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react';
+import {FC, useContext} from 'react';
 import {TableCell, TableHead, TableRow, TableSortLabel} from "@mui/material";
 import TableContext from "../context/TableContext";
 import {useSelector} from "react-redux";
@@ -7,7 +7,8 @@ import {setSort} from "../redux/slices/filtersSlice";
 
 const DataTableHead: FC = () => {
     const dispatch = useAppDispatch()
-    const {sort, shownColumns} = useSelector((state: RootState) => state.filters)
+    const {sort} = useSelector((state: RootState) => state.filters)
+    const {shownColumns} = useSelector((state: RootState) => state.ui)
     let columns = useContext(TableContext)
 
     const sortHandler = (column: string) => {

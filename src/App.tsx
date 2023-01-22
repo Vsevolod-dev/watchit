@@ -7,6 +7,7 @@ import StyledApp from "./styles/components/StyledApp";
 import Language from "./components/Language";
 import {TableContextProvider} from "./context/TableContext";
 import {GridColDef} from "@mui/x-data-grid";
+import DateFormat from './components/DateFormat';
 
 const columns: GridColDef[] = [
     {field: "id", headerName: "ID", width: 40},
@@ -25,10 +26,11 @@ const App: FC = () => {
                     <DateFilters/>
                     <Language/>
                 </StyledApp.Row>
-                <StyledApp.Row>
+                <StyledApp.GridRow>
                     <RowsCountSelector/>
+                    <DateFormat/>
                     <Search/>
-                </StyledApp.Row>
+                </StyledApp.GridRow>
                 <DataTable/>
             </StyledApp.Wrap>
         </TableContextProvider>

@@ -8,7 +8,7 @@ const initialState: FiltersType = {
     page: 1,
     limit: 5,
     dateFrom: d.toLocaleDateString(),
-    dateTo: new Date().toLocaleDateString(),
+    dateTo: new Date().toLocaleDateString()
 }
 
 export const filtersSlice = createSlice({
@@ -27,9 +27,6 @@ export const filtersSlice = createSlice({
         setSearchColumns(state, action) {
             state.searchColumns = action.payload
         },
-        setShownColumns(state, action) {
-            state.shownColumns = action.payload
-        },
         setDateFrom(state, action) {
             state.dateFrom = action.payload
         },
@@ -38,10 +35,10 @@ export const filtersSlice = createSlice({
         },
         setSort(state, action: PayloadAction<SortType>) {
             state.sort = action.payload
-        }
+        },
     },
 })
 
-export const {setPage, setLimit, setSearch, setDateFrom, setDateTo, setSort, setSearchColumns, setShownColumns} = filtersSlice.actions
+export const {setPage, setLimit, setSearch, setDateFrom, setDateTo, setSort, setSearchColumns} = filtersSlice.actions
 
 export default filtersSlice.reducer

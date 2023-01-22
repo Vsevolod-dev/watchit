@@ -23,5 +23,9 @@ export type FiltersType = {
     search?: string
     searchColumns?: string[]
     sort?: SortType
+}
+
+export type UIType = {
     shownColumns?: string[]
+    dateFormat: string
 }
