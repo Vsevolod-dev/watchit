@@ -18,7 +18,7 @@ type FetchUsersParams = {
 export const usersApi = createApi({
     reducerPath: 'usersApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `http://localhost:3002`,
+        baseUrl: `https://watchit-server.onrender.com`,
     }),
     endpoints: (build) => ({
         fetchUsers: build.query<FetchUsersResponse, FiltersType>({
