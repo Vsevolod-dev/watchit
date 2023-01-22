@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import DateFilters from "./components/DateFilters";
 import RowsCountSelector from "./components/RowsCountSelector";
 import DataTable from "./components/DataTable";

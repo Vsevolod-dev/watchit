@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../redux/store";
 import {useLazyFetchUsersQuery} from "../services/UsersService";
 import moment from "moment/moment";
-import {Paper, Table, TableBody, TableContainer} from "@mui/material";
+import {Paper, Table, TableBody, TableContainer, TableRow, TableCell, CircularProgress } from "@mui/material";
 import {UserType} from "../types";
 import {setShownColumns} from "../redux/slices/uiSlice";
 import TableContext from "../context/TableContext";
@@ -11,6 +11,7 @@ import DataTableRow from "./DataTableRow";
 import DataTableHead from "./DataTableHead";
 import DataTableFooter from "./DataTableFooter";
 import { useTranslation } from 'react-i18next';
+import { autoBatchEnhancer } from '@reduxjs/toolkit';
 
 
 const DataTable: FC = () => {
@@ -64,7 +65,13 @@ const DataTable: FC = () => {
             <Table sx={{ minWidth: 400 }}>
                 <DataTableHead/>
                 <TableBody>
-                    {rows.map((row: UserType, index: number) => (
+                    {result.isFetching 
+                    ? <TableRow>
+                        <TableCell sx={{height: '335px'}}>
+                            <CircularProgress/>
+                        </TableCell>
+                    </TableRow>
+                    : rows.map((row: UserType, index: number) => (
                         <DataTableRow key={row.id} row={row} index={index} shownColumns={shownColumns.filter(col => col !== 'expand')} />
                     ))}
                 </TableBody>

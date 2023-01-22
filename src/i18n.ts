@@ -8,5 +8,8 @@ i18next
     .use(LanguageDetector)
     .use(Backend)
     .init({
-        fallbackLng: 'ru'
+        fallbackLng: 'ru',
+        backend: {
+            loadPath: '/watchit/locales/{{lng}}/{{ns}}.json',
+          },
     })
