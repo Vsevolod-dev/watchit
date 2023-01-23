@@ -4,7 +4,7 @@ import {LabelDisplayedRowsArgs} from "@mui/material/TablePagination/TablePaginat
 import {useTranslation} from "react-i18next";
 import {FetchUsersResponse} from "../../services/UsersService";
 import {useAppDispatch} from "../../redux/store";
-import {setPage} from "../../redux/slices/filtersSlice";
+import {filtersAction} from "../../redux/slices/filtersSlice";
 import TablePaginationActions from "./TablePaginationActions";
 
 type PaginationProps = {
@@ -30,7 +30,7 @@ const Pagination: FC<PaginationProps> = ({result, limit, page, colSpan}) => {
     }
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-        dispatch(setPage(page + 1))
+        dispatch(filtersAction.setPage(page + 1))
     }
 
     if (!result.totalCount) return <></> // Todo: add loader

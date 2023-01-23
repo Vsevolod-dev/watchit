@@ -6,8 +6,7 @@ import Collapse from "@mui/material/Collapse";
 import TableContext from "../context/TableContext";
 import {UserType} from "../types";
 import moment from 'moment';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import {useAppSelector } from '../redux/store';
 
 
 type DataTableRowType = {
@@ -35,7 +34,7 @@ const StyledTableRow = styled(TableRow)<StyledTableRowProps>(({ theme, index }) 
 const DataTableRow: FC<DataTableRowType> = ({row, shownColumns, index}) => {
     const [open, setOpen] = React.useState(false);
     const columns = useContext(TableContext)
-    const {dateFormat} = useSelector((state: RootState) => state.ui)
+    const dateFormat = useAppSelector(state => state.ui.dateFormat)
 
     return (
         <>

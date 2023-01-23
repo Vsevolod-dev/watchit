@@ -1,9 +1,8 @@
 import { MenuItem, SelectChangeEvent } from '@mui/material';
 import {FC} from 'react'
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { setDateFormat } from '../redux/slices/uiSlice';
-import { RootState, useAppDispatch } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import { StyledLabel } from '../styles/components/StyledApp';
 import {StyledSelect} from "../styles/components/StyledMUI";
 
@@ -15,7 +14,7 @@ const FORMATS = [
 const DateFormat: FC = () => {
     const dispatch = useAppDispatch()
     const {t} = useTranslation()
-    const {dateFormat} = useSelector((state: RootState) => state.ui)
+    const dateFormat = useAppSelector(state => state.ui.dateFormat)
 
     const dateFromatChangeHandler = (event: SelectChangeEvent<unknown>) => {
         if (typeof event.target.value !== 'string') return

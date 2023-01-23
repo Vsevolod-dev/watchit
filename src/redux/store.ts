@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {useDispatch, useSelector} from 'react-redux';
-import filtersSlice from './slices/filtersSlice';
+import {filtersReducer} from './slices/filtersSlice';
 import uiSlice from './slices/uiSlice';
 import {usersApi} from '../services/UsersService';
 import { TypedUseSelectorHook } from 'react-redux';
@@ -8,7 +8,7 @@ import { TypedUseSelectorHook } from 'react-redux';
 export const store = configureStore({
     reducer: {
         [usersApi.reducerPath]: usersApi.reducer,
-        filters: filtersSlice,
+        filters: filtersReducer,
         ui: uiSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(

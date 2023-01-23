@@ -1,20 +1,20 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import {MenuItem, SelectChangeEvent} from "@mui/material";
-import {setLimit, setPage} from "../redux/slices/filtersSlice";
-import {RootState, useAppDispatch} from "../redux/store";
-import {useSelector} from "react-redux";
+import {filtersAction} from "../redux/slices/filtersSlice";
+import {useAppSelector} from "../redux/store";
 import {StyledSelect} from "../styles/components/StyledMUI";
 import {StyledLabel} from "../styles/components/StyledApp";
 import {useTranslation} from "react-i18next";
+import {useActionCreators} from '../hooks/useActionCreators'
 
 const RowsCountSelector: FC = () => {
-    const dispatch = useAppDispatch()
-    const {limit} = useSelector((state: RootState) => state.filters)
+    const limit = useAppSelector(state => state.filters.limit)
     const {t} = useTranslation()
+    const actions = useActionCreators(filtersAction)
 
     const showHandler = (e: SelectChangeEvent<unknown>) => {
-        dispatch(setPage(1))
-        dispatch(setLimit(e.target.value))
+        actions.setPage(1)
+        actions.setLimit(e.target.value)
     }
 
     return (

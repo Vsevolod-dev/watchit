@@ -3,8 +3,7 @@ import {TableFooter, TableRow} from "@mui/material";
 import FilterPopup from "./FilterPopup";
 import {setShownColumns} from "../redux/slices/uiSlice";
 import Pagination from "./Pagination/Pagination";
-import {useSelector} from "react-redux";
-import {RootState} from "../redux/store";
+import {useAppSelector} from "../redux/store";
 import TableContext from "../context/TableContext";
 import {FetchUsersResponse} from "../services/UsersService";
 
@@ -14,8 +13,8 @@ type DataTableFooterType = {
 }
 
 const DataTableFooter: FC<DataTableFooterType> = ({data}) => {
-    const {page, limit} = useSelector((state: RootState) => state.filters)
-    const {shownColumns} = useSelector((state: RootState) => state.ui)
+    const {page, limit} = useAppSelector(state => state.filters)
+    const shownColumns = useAppSelector(state => state.ui.shownColumns)
     let columns = useContext(TableContext)
 
     if (!shownColumns) return <></>

@@ -1,13 +1,13 @@
 import {FC, useState} from 'react';
 import {MenuItem, SelectChangeEvent, TextField} from "@mui/material";
-import {setDateFrom, setDateTo} from "../redux/slices/filtersSlice";
+import {filtersAction} from "../redux/slices/filtersSlice";
 import moment, {isMoment} from "moment/moment";
-import {RootState, useAppDispatch} from "../redux/store";
+import {useAppSelector} from "../redux/store";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {LocalizationProvider} from "@mui/x-date-pickers";
-import {useSelector} from "react-redux";
 import {StyledDesktopDatePicker, StyledSelect} from "../styles/components/StyledMUI";
 import {useTranslation} from "react-i18next";
+import {useActionCreators} from '../hooks/useActionCreators'
 
 const SelectOptions = [
     {value: 'today', text: 'today'},
@@ -16,10 +16,10 @@ const SelectOptions = [
 ]
 
 const DateFilters: FC = () => {
-    const dispatch = useAppDispatch()
     const [date, setDate] = useState('today');
-    const {dateFrom, dateTo} = useSelector((state: RootState) => state.filters)
+    const {dateFrom, dateTo} = useAppSelector(state => state.filters)
     const {t} = useTranslation()
+    const actions = useActionCreators(filtersAction)
 
     const dateRangeHandler = (event: SelectChangeEvent<unknown>) => {
         if (typeof event.target.value !== 'string') return
@@ -27,31 +27,31 @@ const DateFilters: FC = () => {
         setDate(event.target.value)
         switch (event.target.value) {
             case 'today':
-                dispatch(setDateFrom(moment().format('DD-MM-YYYY')))
-                dispatch(setDateTo(moment().format('DD-MM-YYYY')))
+                actions.setDateFrom(moment().format('DD-MM-YYYY'))
+                actions.setDateTo(moment().format('DD-MM-YYYY'))
                 break
             case 'tomorrow':
                 const tomorrowDate = moment().add(1, "days")
-                dispatch(setDateFrom(tomorrowDate.format('DD-MM-YYYY')))
-                dispatch(setDateTo(tomorrowDate.format('DD-MM-YYYY')))
+                actions.setDateFrom(tomorrowDate.format('DD-MM-YYYY'))
+                actions.setDateTo(tomorrowDate.format('DD-MM-YYYY'))
                 break
             case 'yesterday':
                 const yesterdayDate = moment().add(-1, "days")
-                dispatch(setDateFrom(yesterdayDate.format('DD-MM-YYYY')))
-                dispatch(setDateTo(yesterdayDate.format('DD-MM-YYYY')))
+                actions.setDateFrom(yesterdayDate.format('DD-MM-YYYY'))
+                actions.setDateTo(yesterdayDate.format('DD-MM-YYYY'))
                 break
         }
     }
 
     const setDateFromHandler = (value: unknown) => {
         if (!isMoment(value)) return
-        dispatch(setDateFrom(value.format('DD-MM-YYYY')))
+        actions.setDateFrom(value.format('DD-MM-YYYY'))
 
     }
 
     const setDateToHandler = (value: unknown) => {
         if (!isMoment(value)) return
-        dispatch(setDateTo(value.format('DD-MM-YYYY')))
+        actions.setDateTo(value.format('DD-MM-YYYY'))
     }
 
     return (

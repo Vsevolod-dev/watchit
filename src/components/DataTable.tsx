@@ -1,6 +1,5 @@
 import {FC, useContext, useEffect} from 'react';
-import {useSelector} from "react-redux";
-import {RootState, useAppDispatch} from "../redux/store";
+import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useLazyFetchUsersQuery} from "../services/UsersService";
 import moment from "moment/moment";
 import {Paper, Table, TableBody, TableContainer, TableRow, TableCell, CircularProgress } from "@mui/material";
@@ -11,14 +10,13 @@ import DataTableRow from "./DataTableRow";
 import DataTableHead from "./DataTableHead";
 import DataTableFooter from "./DataTableFooter";
 import { useTranslation } from 'react-i18next';
-import { autoBatchEnhancer } from '@reduxjs/toolkit';
 
 
 const DataTable: FC = () => {
     const dispatch = useAppDispatch()
     const {t} = useTranslation()
-    const {dateFrom, dateTo, page, limit, search, sort, searchColumns} = useSelector((state: RootState) => state.filters)
-    const {shownColumns} = useSelector((state: RootState) => state.ui)
+    const {dateFrom, dateTo, page, limit, search, sort, searchColumns} = useAppSelector(state => state.filters)
+    const shownColumns = useAppSelector(state => state.ui.shownColumns)
     const [fetchUsers, result] = useLazyFetchUsersQuery()
     let columns = useContext(TableContext)
 
