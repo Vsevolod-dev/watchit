@@ -27,8 +27,8 @@ const DataTable: FC = () => {
     useEffect(() => {
         if (!dateFrom || !dateTo || !limit) return
         fetchUsers({
-            dateFrom: moment(dateFrom, 'DD-MM-YYYY').format('YYYY-MM-DD'),
-            dateTo: moment(dateTo, 'DD-MM-YYYY').add(1, "day").format('YYYY-MM-DD'),
+            dateFrom: moment(dateFrom).format('YYYY-MM-DD'),
+            dateTo: moment(dateTo).add(1, "day").format('YYYY-MM-DD'),
             page,
             limit,
             sort,

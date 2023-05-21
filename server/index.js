@@ -10,8 +10,6 @@ app.get('/users', (request, response) => {
   const query = request.query
   const path = request.path.slice(1)
 
-  console.log(query, "''''''''''''''''''''''''''''''''''''''''")
-
   let result = db[path]
   let limit = 10
 
